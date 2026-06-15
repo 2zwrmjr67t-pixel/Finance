@@ -3,1190 +3,697 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Aniversário da Maria Valentina</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Finanças JG">
+<meta name="theme-color" content="#f7f7f5">
+<title>Finanças · JG & Morgana</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet">
 <style>
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
 :root {
-  --rosa: #D4145A;
-  --verde: #1C3D2E;
-  --preto: #111111;
-  --cinza: #555555;
-  --cinza-leve: #888888;
-  --linha: #E8E8E8;
-  --fundo: #FAFAFA;
-  --branco: #FFFFFF;
-  --fundo-rosa: #FDF0F5;
-  --fundo-verde: #F0F5F2;
+  --bg:      #f7f7f5;
+  --surface: #ffffff;
+  --text:    #1a1a18;
+  --text2:   #6b6b65;
+  --text3:   #b0b0a8;
+  --sep:     rgba(0,0,0,0.07);
+  --r:       16px;
+  --r-sm:    10px;
 }
-
-html { font-size: 16px; -webkit-text-size-adjust: 100%; }
-
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg:      #141412;
+    --surface: #1e1e1b;
+    --text:    #f0efe9;
+    --text2:   #888880;
+    --text3:   #444440;
+    --sep:     rgba(255,255,255,0.07);
+  }
+}
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+html, body { background: var(--bg); }
 body {
-  font-family: 'DM Sans', sans-serif;
-  background: var(--fundo);
-  color: var(--preto);
-  min-height: 100vh;
-  padding-bottom: 80px;
+  font-family: 'Inter', -apple-system, sans-serif;
+  color: var(--text);
+  max-width: 480px;
+  margin: 0 auto;
+  padding-bottom: 40px;
 }
 
 /* ── HEADER ── */
-.app-header {
-  background: var(--branco);
-  border-bottom: 1px solid var(--linha);
-  padding: 2rem 1.5rem 1.5rem;
-  padding-top: max(2rem, env(safe-area-inset-top));
+.hdr {
+  padding: max(env(safe-area-inset-top), 24px) 24px 0;
+  background: var(--bg);
 }
-.app-header-eyebrow {
-  font-size: 0.7rem;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--rosa);
-  margin-bottom: 0.4rem;
+.hdr-inner { padding-bottom: 20px; border-bottom: 1px solid var(--sep); }
+.hdr-eye {
+  font-size: 11px; font-weight: 500; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--text3); margin-bottom: 10px;
 }
-.app-header h1 {
-  font-family: 'DM Serif Display', serif;
-  font-size: clamp(1.7rem, 6vw, 2.4rem);
-  line-height: 1.05;
-  color: var(--preto);
-  font-weight: 400;
+.hdr-num {
+  font-size: 48px; font-weight: 500; color: var(--text);
+  line-height: 1; letter-spacing: -2px; margin-bottom: 6px;
 }
-.app-header h1 em {
-  font-style: italic;
-  color: var(--rosa);
-}
-.header-meta {
-  display: flex;
-  gap: 1rem;
-  margin-top: 1rem;
-  flex-wrap: wrap;
-}
-.meta-pill {
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-  background: var(--fundo);
-  border: 1px solid var(--linha);
-  border-radius: 6px;
-  padding: 0.35rem 0.75rem;
-  font-size: 0.78rem;
-  color: var(--cinza);
-  font-weight: 500;
-}
-.meta-pill .dot {
-  width: 6px; height: 6px;
-  border-radius: 50%;
-  flex-shrink: 0;
-}
-.dot-rosa { background: var(--rosa); }
-.dot-verde { background: var(--verde); }
+.hdr-sub { font-size: 13px; color: var(--text2); }
 
-/* ── BOTTOM NAV ── */
-.bottom-nav {
-  position: fixed;
-  bottom: 0; left: 0; right: 0;
-  background: var(--branco);
-  border-top: 1px solid var(--linha);
-  display: flex;
-  padding-bottom: env(safe-area-inset-bottom);
-  z-index: 200;
+/* ── KPI STRIP ── */
+.kpi-strip {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 2px; margin: 2px 0;
 }
-.nav-btn {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 0.7rem 0.3rem 0.6rem;
+.kpi {
+  background: var(--surface);
+  padding: 16px 20px;
+}
+.kpi-l { font-size: 11px; color: var(--text3); margin-bottom: 5px; }
+.kpi-v { font-size: 22px; font-weight: 500; letter-spacing: -.5px; }
+.kpi-s { font-size: 11px; color: var(--text3); margin-top: 3px; }
+
+/* ── NAV ── */
+.nav-wrap {
+  background: var(--bg);
+  padding: 16px 24px 12px;
+  overflow-x: auto; -webkit-overflow-scrolling: touch;
+}
+.nav-wrap::-webkit-scrollbar { display: none; }
+.nav { display: flex; gap: 6px; width: max-content; }
+.nb {
+  font-size: 13px; font-family: inherit;
+  padding: 7px 16px;
+  border-radius: 20px;
   border: none;
-  background: none;
+  background: var(--surface);
+  color: var(--text2);
   cursor: pointer;
-  gap: 0.25rem;
-  -webkit-tap-highlight-color: transparent;
-  transition: opacity 0.15s;
+  white-space: nowrap;
+  transition: background .15s, color .15s;
 }
-.nav-btn:active { opacity: 0.6; }
-.nav-icon { font-size: 1.3rem; line-height: 1; }
-.nav-label {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 0.62rem;
-  font-weight: 500;
-  color: var(--cinza-leve);
-  letter-spacing: 0.02em;
-}
-.nav-btn.active .nav-label { color: var(--rosa); font-weight: 600; }
-.nav-btn.active .nav-icon { filter: none; }
+.nb.on { background: var(--text); color: var(--bg); }
 
-/* ── SECTIONS ── */
-.section { display: none; padding: 1.5rem; max-width: 680px; margin: 0 auto; }
-.section.active { display: block; }
+/* ── CONTENT ── */
+.content { padding: 0 0 20px; }
+.sec { display: none; }
+.sec.on { display: block; }
 
-/* ── FESTA SWITCHER ── */
-.festa-switch {
-  display: flex;
-  background: var(--branco);
-  border: 1px solid var(--linha);
-  border-radius: 10px;
-  padding: 4px;
-  margin-bottom: 1.5rem;
+/* ── SECTION HERO (número grande de destaque) ── */
+.sec-hero {
+  padding: 28px 24px 20px;
+  background: var(--surface);
+  margin-bottom: 2px;
 }
-.festa-btn {
-  flex: 1;
-  padding: 0.6rem 0.5rem;
-  border: none;
-  background: none;
-  border-radius: 7px;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 0.8rem;
-  font-weight: 500;
-  color: var(--cinza);
-  cursor: pointer;
-  transition: all 0.2s;
-  -webkit-tap-highlight-color: transparent;
+.sec-hero-eye { font-size: 11px; color: var(--text3); margin-bottom: 8px; text-transform: uppercase; letter-spacing: .07em; }
+.sec-hero-val { font-size: 40px; font-weight: 500; letter-spacing: -1.5px; line-height: 1; margin-bottom: 4px; }
+.sec-hero-sub { font-size: 13px; color: var(--text2); }
+
+/* ── BLOCK (substitui card — sem borda, só superfície) ── */
+.block {
+  background: var(--surface);
+  padding: 20px 24px;
+  margin-bottom: 2px;
 }
-.festa-btn.active {
-  background: var(--preto);
-  color: var(--branco);
-  font-weight: 600;
+.block-t {
+  font-size: 11px; font-weight: 500; letter-spacing: .08em;
+  text-transform: uppercase; color: var(--text3);
+  margin-bottom: 16px;
 }
 
-/* ── FESTA CONTENT ── */
-.festa-panel { display: none; }
-.festa-panel.active { display: block; }
+/* ── ROW ── */
+.row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 9px 0; border-bottom: 1px solid var(--sep); gap: 12px;
+}
+.row:last-child { border: none; }
+.rl { font-size: 14px; color: var(--text2); flex: 1; min-width: 0; }
+.rl small { display: block; font-size: 11px; color: var(--text3); margin-top: 2px; }
+.rv { font-size: 14px; font-weight: 500; color: var(--text); white-space: nowrap; }
+.rv.r { color: #B03030; }
+.rv.g { color: #2D6010; }
+.rr { text-align: right; flex-shrink: 0; }
 
-/* ── EVENT CARD ── */
-.event-card {
-  border-radius: 12px;
-  padding: 1.25rem;
-  margin-bottom: 1.25rem;
-}
-.event-card.rosa-card { background: var(--fundo-rosa); }
-.event-card.verde-card { background: var(--fundo-verde); }
-.event-card-label {
-  font-size: 0.68rem;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  margin-bottom: 0.5rem;
-}
-.event-card.rosa-card .event-card-label { color: var(--rosa); }
-.event-card.verde-card .event-card-label { color: var(--verde); }
-.event-card-title {
-  font-family: 'DM Serif Display', serif;
-  font-size: 1.25rem;
-  font-weight: 400;
-  line-height: 1.2;
-  margin-bottom: 0.4rem;
-}
-.event-card-sub { font-size: 0.82rem; color: var(--cinza); line-height: 1.5; }
-
-/* ── STATS ROW ── */
-.stats-row {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 0.75rem;
-  margin-bottom: 1.5rem;
-}
-.stat-box {
-  background: var(--branco);
-  border: 1px solid var(--linha);
-  border-radius: 10px;
-  padding: 0.9rem 0.75rem;
-  text-align: center;
-}
-.stat-num {
-  font-family: 'DM Serif Display', serif;
-  font-size: 1.5rem;
-  line-height: 1;
-  color: var(--preto);
-}
-.stat-label {
-  font-size: 0.68rem;
-  color: var(--cinza-leve);
-  margin-top: 0.3rem;
-  font-weight: 500;
+/* dark mode color adjustments */
+@media (prefers-color-scheme: dark) {
+  .rv.r { color: #F09595; }
+  .rv.g { color: #97C459; }
 }
 
-/* ── SECTION HEADING ── */
-.sh {
-  font-size: 0.68rem;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--cinza-leve);
-  margin: 1.75rem 0 0.75rem;
-  padding-bottom: 0.5rem;
-  border-bottom: 1px solid var(--linha);
+/* ── PILL ── */
+.pill {
+  display: inline-block; font-size: 10px; font-weight: 500;
+  padding: 3px 9px; border-radius: 10px; white-space: nowrap; margin-top: 4px;
+}
+.pill.r { background: #FCEBEB; color: #791F1F; }
+.pill.a { background: #FEF3E2; color: #7A4800; }
+.pill.g { background: #EAF3DE; color: #2D6010; }
+.pill.b { background: #E6F1FB; color: #0C447C; }
+.pill.p { background: #EEEDFE; color: #3C3489; }
+@media (prefers-color-scheme: dark) {
+  .pill.r { background: #501313; color: #F09595; }
+  .pill.a { background: #412402; color: #FAC775; }
+  .pill.g { background: #173404; color: #97C459; }
+  .pill.b { background: #042C53; color: #85B7EB; }
+  .pill.p { background: #26215C; color: #AFA9EC; }
 }
 
-/* ── TABLE ── */
-.tbl-wrap { overflow-x: auto; margin-bottom: 1rem; border-radius: 10px; border: 1px solid var(--linha); background: var(--branco); }
-table { width: 100%; border-collapse: collapse; font-size: 0.82rem; min-width: 320px; }
-th {
-  padding: 0.65rem 0.9rem;
-  text-align: left;
-  font-size: 0.7rem;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  background: var(--preto);
-  color: var(--branco);
-}
-td {
-  padding: 0.6rem 0.9rem;
-  border-bottom: 1px solid var(--linha);
-  color: var(--cinza);
-  vertical-align: top;
-  line-height: 1.4;
-}
-tr:last-child td { border-bottom: none; }
-tr:nth-child(even) td { background: #FAFAFA; }
-.td-strong { font-weight: 600; color: var(--preto); }
-.td-rosa { color: var(--rosa); font-weight: 600; }
-.td-verde { color: var(--verde); font-weight: 600; }
+/* ── DIVIDER ── */
+.div { border: none; border-top: 1px solid var(--sep); margin: 10px 0; }
 
 /* ── ALERT ── */
 .alert {
-  background: #FFFBF0;
-  border-left: 3px solid #F0A500;
-  border-radius: 0 8px 8px 0;
-  padding: 0.8rem 1rem;
-  font-size: 0.82rem;
-  color: #5a3e00;
-  line-height: 1.5;
-  margin-bottom: 0.85rem;
+  margin-bottom: 2px;
+  background: #FCEBEB;
+  padding: 16px 24px;
 }
-.alert strong { font-weight: 600; }
-
-/* ── RECIPE ACCORDION ── */
-.recipe {
-  background: var(--branco);
-  border: 1px solid var(--linha);
-  border-radius: 10px;
-  margin-bottom: 0.75rem;
-  overflow: hidden;
-}
-.recipe-trigger {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 1rem 1.1rem;
-  background: none;
-  border: none;
-  cursor: pointer;
-  text-align: left;
-  -webkit-tap-highlight-color: transparent;
-  gap: 0.75rem;
-}
-.recipe-trigger:active { background: var(--fundo); }
-.recipe-name {
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: var(--preto);
-  line-height: 1.3;
-  flex: 1;
-}
-.recipe-chevron {
-  width: 20px; height: 20px;
-  border-radius: 50%;
-  background: var(--fundo);
-  border: 1px solid var(--linha);
-  display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0;
-  font-size: 0.75rem;
-  color: var(--cinza);
-  transition: transform 0.25s, background 0.2s;
-}
-.recipe.open .recipe-chevron { transform: rotate(180deg); background: var(--rosa); color: white; border-color: var(--rosa); }
-.recipe-body {
-  display: none;
-  padding: 0 1.1rem 1.1rem;
-  border-top: 1px solid var(--linha);
-}
-.recipe.open .recipe-body { display: block; }
-.r-label {
-  font-size: 0.68rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--cinza-leve);
-  margin: 1rem 0 0.5rem;
-}
-.r-ing {
-  font-size: 0.83rem;
-  color: var(--cinza);
-  padding: 0.2rem 0;
-  display: flex;
-  align-items: flex-start;
-  gap: 0.5rem;
-  line-height: 1.4;
-}
-.r-ing::before { content: '—'; color: var(--linha); font-size: 0.75rem; flex-shrink: 0; margin-top: 0.1rem; }
-.r-step {
-  display: flex;
-  gap: 0.75rem;
-  font-size: 0.83rem;
-  color: var(--cinza);
-  margin-bottom: 0.5rem;
-  line-height: 1.45;
-  align-items: flex-start;
-}
-.r-n {
-  min-width: 20px; height: 20px;
-  border-radius: 50%;
-  background: var(--preto);
-  color: var(--branco);
-  font-size: 0.65rem;
-  font-weight: 700;
-  display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0;
-  margin-top: 0.1rem;
-}
-.r-n.rosa { background: var(--rosa); }
-.r-note {
-  background: #FFFBF0;
-  border-left: 2px solid #F0A500;
-  border-radius: 0 6px 6px 0;
-  padding: 0.5rem 0.75rem;
-  font-size: 0.78rem;
-  color: #5a3e00;
-  margin-top: 0.4rem;
-  margin-bottom: 0.2rem;
-  line-height: 1.45;
+@media (prefers-color-scheme: dark) { .alert { background: #3a1010; } }
+.alert-t { font-size: 13px; font-weight: 500; color: #791F1F; margin-bottom: 4px; }
+.alert-b { font-size: 12px; color: #6b3030; line-height: 1.5; }
+@media (prefers-color-scheme: dark) {
+  .alert-t { color: #F09595; }
+  .alert-b { color: #c07070; }
 }
 
-/* ── TIMELINE ── */
-.tl { padding-left: 1.25rem; position: relative; }
-.tl::before {
-  content: '';
-  position: absolute;
-  left: 0.3rem; top: 0.5rem; bottom: 0.5rem;
-  width: 1px;
-  background: var(--linha);
+/* ── PARCELAS NET ROWS ── */
+.nbr {
+  display: flex; align-items: center; gap: 12px;
+  padding: 10px 0; border-bottom: 1px solid var(--sep);
 }
-.tl-row {
-  position: relative;
-  padding: 0 0 1rem 1.25rem;
-}
-.tl-row::before {
-  content: '';
-  position: absolute;
-  left: -0.95rem; top: 0.35rem;
-  width: 8px; height: 8px;
-  border-radius: 50%;
-  background: var(--linha);
-  border: 2px solid var(--branco);
-  outline: 1px solid var(--linha);
-}
-.tl-row.hl::before { background: var(--rosa); outline-color: var(--rosa); }
-.tl-row.hl-verde::before { background: var(--verde); outline-color: var(--verde); }
-.tl-t {
-  font-size: 0.7rem;
-  font-weight: 700;
-  color: var(--cinza-leve);
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  margin-bottom: 0.15rem;
-}
-.tl-d { font-size: 0.84rem; color: var(--cinza); line-height: 1.4; }
-.tl-row.hl .tl-d { font-weight: 600; color: var(--preto); }
-.tl-row.hl-verde .tl-d { font-weight: 600; color: var(--verde); }
-
-/* ── DAY BLOCK ── */
-.day-block {
-  border: 1px solid var(--linha);
-  border-radius: 10px;
-  background: var(--branco);
-  margin-bottom: 0.75rem;
-  overflow: hidden;
-}
-.day-trigger {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.9rem 1.1rem;
-  background: none;
-  border: none;
-  cursor: pointer;
-  text-align: left;
-  -webkit-tap-highlight-color: transparent;
-  gap: 0.75rem;
-}
-.day-trigger:active { background: var(--fundo); }
-.day-title { font-size: 0.9rem; font-weight: 600; color: var(--preto); flex: 1; }
-.day-sub { font-size: 0.72rem; color: var(--cinza-leve); margin-top: 0.1rem; }
-.day-arrow {
-  font-size: 0.75rem;
-  color: var(--cinza-leve);
-  transition: transform 0.25s;
-  flex-shrink: 0;
-}
-.day-block.open .day-arrow { transform: rotate(180deg); }
-.day-body { display: none; padding: 1rem 1.1rem; border-top: 1px solid var(--linha); }
-.day-block.open .day-body { display: block; }
+.nbr:last-child { border: none; }
+.nb-month { font-size: 13px; font-weight: 500; width: 50px; flex-shrink: 0; }
+.nb-track { flex: 1; height: 5px; background: var(--sep); border-radius: 3px; overflow: hidden; display: flex; }
+.nb-bb { height: 100%; background: #378ADD; }
+.nb-c6 { height: 100%; background: #1D9E75; }
+.nb-val { font-size: 13px; font-weight: 500; width: 62px; text-align: right; flex-shrink: 0; }
 
 /* ── CHECKLIST ── */
-.progress-bar-wrap { margin-bottom: 1.5rem; }
-.pb-top { display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--cinza-leve); margin-bottom: 0.4rem; }
-.pb-track { height: 4px; background: var(--linha); border-radius: 4px; overflow: hidden; }
-.pb-fill { height: 100%; background: var(--rosa); border-radius: 4px; transition: width 0.35s ease; }
-
-.chk-group { margin-bottom: 1.5rem; }
-.chk-head {
-  font-size: 0.68rem;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--cinza-leve);
-  padding: 0.5rem 0;
-  border-bottom: 1px solid var(--linha);
-  margin-bottom: 0.25rem;
+.ck {
+  display: flex; align-items: center; gap: 14px;
+  padding: 11px 0; border-bottom: 1px solid var(--sep);
+  cursor: pointer; user-select: none;
 }
-.chk-item {
-  display: flex;
-  align-items: center;
-  gap: 0.9rem;
-  padding: 0.65rem 0.25rem;
-  border-bottom: 1px solid var(--fundo);
-  cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
-  border-radius: 6px;
-  transition: background 0.1s;
+.ck:last-child { border: none; }
+.ck-box {
+  width: 24px; height: 24px; border-radius: 7px;
+  border: 1.5px solid var(--text3);
+  flex-shrink: 0; display: flex; align-items: center; justify-content: center;
+  transition: background .12s, border-color .12s;
 }
-.chk-item:active { background: var(--fundo); }
-.chk-box {
-  width: 20px; height: 20px;
-  border: 1.5px solid var(--linha);
-  border-radius: 5px;
-  flex-shrink: 0;
-  display: flex; align-items: center; justify-content: center;
-  transition: all 0.15s;
-  background: var(--branco);
-}
-.chk-item.done .chk-box {
-  background: var(--rosa);
-  border-color: var(--rosa);
-}
-.chk-item.done .chk-box::after {
-  content: '';
-  display: block;
-  width: 5px; height: 9px;
-  border: 2px solid white;
-  border-top: none; border-left: none;
-  transform: rotate(45deg) translate(-1px, -1px);
-}
-.chk-text { flex: 1; font-size: 0.84rem; color: var(--cinza); line-height: 1.35; }
-.chk-item.done .chk-text { text-decoration: line-through; color: var(--cinza-leve); }
-.chk-qty { font-size: 0.75rem; font-weight: 600; color: var(--preto); white-space: nowrap; }
-.chk-item.done .chk-qty { color: var(--cinza-leve); }
-
-/* ── CONTRATO ── */
-.warn-card {
-  background: var(--branco);
-  border: 1px solid var(--linha);
-  border-left: 3px solid var(--rosa);
-  border-radius: 0 10px 10px 0;
-  padding: 1rem 1.1rem;
-  margin-bottom: 0.75rem;
-}
-.warn-card.urgente { border-left-color: #E53935; }
-.warn-card.ok { border-left-color: var(--verde); }
-.warn-title { font-size: 0.78rem; font-weight: 700; color: var(--preto); margin-bottom: 0.25rem; }
-.warn-body { font-size: 0.8rem; color: var(--cinza); line-height: 1.45; }
-
-/* ── RESPONSIVE ── */
-@media (min-width: 480px) {
-  .stats-row { grid-template-columns: repeat(4, 1fr); }
-}
-@media (min-width: 640px) {
-  .section { padding: 2rem; }
-  .app-header { padding: 2.5rem 2rem 2rem; }
+.ck-box.on { background: #2D6010; border-color: #2D6010; }
+.ck-txt { flex: 1; min-width: 0; }
+.ck-name { font-size: 14px; color: var(--text); transition: color .12s; }
+.ck-name.on { color: var(--text3); text-decoration: line-through; }
+.ck-cat { font-size: 11px; color: var(--text3); margin-top: 2px; }
+.ck-amt { font-size: 13px; font-weight: 500; color: #B03030; white-space: nowrap; transition: color .12s; }
+.ck-amt.on { color: var(--text3); }
+@media (prefers-color-scheme: dark) {
+  .ck-box.on { background: #3B6D11; border-color: #3B6D11; }
+  .ck-amt { color: #F09595; }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { transition: none !important; }
+/* ── PROGRESS ── */
+.prog-wrap { padding: 0 24px; margin-bottom: 2px; background: var(--surface); padding-top: 16px; padding-bottom: 16px; }
+.prog-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+.prog-lbl { font-size: 12px; color: var(--text2); }
+.prog-count { font-size: 12px; color: var(--text3); }
+.prog-track { height: 3px; background: var(--sep); border-radius: 2px; overflow: hidden; }
+.prog-fill { height: 100%; background: #2D6010; border-radius: 2px; transition: width .3s; }
+
+/* ── SYNC ── */
+.sync-bar { display: flex; align-items: center; gap: 8px; padding: 14px 24px 10px; background: var(--bg); }
+.sync-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--text3); flex-shrink: 0; }
+.sync-dot.ok  { background: #2D6010; }
+.sync-dot.err { background: #B03030; }
+.sync-dot.run { background: #D4880A; animation: bl 1s infinite; }
+@keyframes bl { 0%,100%{opacity:1} 50%{opacity:.3} }
+.sync-txt { font-size: 11px; color: var(--text3); }
+
+/* ── GUIDE ── */
+.guide { background: var(--surface); padding: 20px 24px; margin-bottom: 2px; }
+.guide-t { font-size: 13px; font-weight: 500; color: var(--text); margin-bottom: 14px; }
+.guide-step { display: flex; gap: 12px; margin-bottom: 14px; }
+.guide-step:last-child { margin-bottom: 0; }
+.step-n {
+  width: 20px; height: 20px; border-radius: 50%;
+  background: var(--text); color: var(--bg);
+  font-size: 10px; font-weight: 500;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px;
 }
+.step-txt { font-size: 13px; color: var(--text2); line-height: 1.55; }
+.step-txt strong { color: var(--text); font-weight: 500; }
+.step-txt code { font-family: monospace; font-size: 12px; background: var(--bg); padding: 1px 5px; border-radius: 4px; }
+
+/* ── FORM ── */
+.form-block { background: var(--surface); padding: 20px 24px; margin-bottom: 2px; }
+.fi {
+  width: 100%; font-size: 14px; font-family: inherit;
+  padding: 12px 14px;
+  border: 1.5px solid var(--sep);
+  border-radius: var(--r-sm);
+  background: var(--bg);
+  color: var(--text); margin-bottom: 10px; display: block;
+}
+.fi:focus { outline: none; border-color: var(--text3); }
+.fi::placeholder { color: var(--text3); }
+.fb { display: flex; gap: 8px; }
+.fbt {
+  flex: 1; font-size: 13px; font-family: inherit;
+  padding: 11px; border-radius: var(--r-sm);
+  border: 1.5px solid var(--sep);
+  background: transparent; color: var(--text);
+  cursor: pointer; transition: background .15s;
+}
+.fbt:active { background: var(--bg); }
 </style>
 </head>
 <body>
 
-<header class="app-header">
-  <div class="app-header-eyebrow">13 de junho de 2026</div>
-  <h1>Aniversário da<br><em>Maria Valentina</em></h1>
-  <div class="header-meta">
-    <span class="meta-pill"><span class="dot dot-verde"></span>Família · 18h–22h</span>
-    <span class="meta-pill"><span class="dot dot-rosa"></span>Escola · 10h–14h</span>
-    <span class="meta-pill">Salão ASSGAPA</span>
+<!-- HEADER -->
+<div class="hdr">
+  <div class="hdr-inner">
+    <div class="hdr-eye">Jun · 2026</div>
+    <div class="hdr-num">R$ 14.700</div>
+    <div class="hdr-sub">receita mensal projetada &nbsp;·&nbsp; JG + Morgana</div>
   </div>
-</header>
+</div>
 
-<!-- ════════════════ CARDÁPIO ════════════════ -->
-<section id="sec-cardapio" class="section active">
-
-  <div class="festa-switch">
-    <button class="festa-btn active" onclick="switchFesta('cardapio','familia',this)">🌿 Família</button>
-    <button class="festa-btn" onclick="switchFesta('cardapio','escola',this)">🌸 Escola</button>
+<!-- KPI STRIP -->
+<div class="kpi-strip">
+  <div class="kpi">
+    <div class="kpi-l">Saldo após fixas · Jul</div>
+    <div class="kpi-v" style="color:#B03030">−R$ 591</div>
+    <div class="kpi-s">antes dos variáveis</div>
   </div>
-
-  <!-- FAMÍLIA -->
-  <div id="cardapio-familia" class="festa-panel active">
-    <div class="event-card verde-card">
-      <div class="event-card-label">Festa da Família</div>
-      <div class="event-card-title">18h — churrasqueira, jogo do Brasil e parabéns no intervalo</div>
-      <div class="event-card-sub">~35 pessoas · 27 adultos · 8 crianças · operação solo</div>
-    </div>
-    <div class="stats-row">
-      <div class="stat-box"><div class="stat-num">35</div><div class="stat-label">Pessoas</div></div>
-      <div class="stat-box"><div class="stat-num">19h</div><div class="stat-label">Jogo</div></div>
-      <div class="stat-box"><div class="stat-num">20h20</div><div class="stat-label">Parabéns</div></div>
-    </div>
-    <div class="alert"><strong>Lembrete:</strong> o aniversário da Maria é o protagonista. O jogo é o pano de fundo. Parabéns no intervalo — todo mundo já está em pé.</div>
-    <div class="sh">Cardápio</div>
-    <div class="tbl-wrap">
-      <table>
-        <thead><tr><th>Prato</th><th>Qtd</th><th>Serviço</th></tr></thead>
-        <tbody>
-          <tr><td class="td-strong">Tulipa de frango</td><td>8 kg</td><td>Espeto · Onda 1</td></tr>
-          <tr><td class="td-strong">Matambrito — queijo e orégano</td><td>3 kg</td><td>Onda 1 · 19h</td></tr>
-          <tr><td class="td-strong">Matambrito — pizza</td><td>4 kg</td><td>Onda 2 · 20h15</td></tr>
-          <tr><td class="td-strong">Pão de alho parrillero</td><td>7 baguetes</td><td>18h30 · pré-jogo</td></tr>
-          <tr><td class="td-strong">Cuca de goiabada c/ flor de sal</td><td>2 formas</td><td>Sobremesa · 22h</td></tr>
-          <tr><td class="td-strong">Cuca de banana c/ doce de leite</td><td>2 formas</td><td>Sobremesa · 22h</td></tr>
-          <tr><td class="td-strong">Quentão vinho + cachaça</td><td>8 kg</td><td>A partir de 20h35</td></tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="sh">Bebidas</div>
-    <div class="tbl-wrap">
-      <table>
-        <thead><tr><th>Bebida</th><th>Quantidade</th></tr></thead>
-        <tbody>
-          <tr><td class="td-strong">Antártica Original 330ml</td><td>24 + 12 reserva</td></tr>
-          <tr><td>Água sem gás 1,5 kg</td><td>4 caixas</td></tr>
-          <tr><td>Água com gás 500g</td><td>2 caixas</td></tr>
-          <tr><td>Coca-Cola 1,5L</td><td>4 garrafas</td></tr>
-        </tbody>
-      </table>
-    </div>
+  <div class="kpi">
+    <div class="kpi-l">Total dívidas</div>
+    <div class="kpi-v" style="color:#B03030">R$ 28.128</div>
+    <div class="kpi-s">cheque + colégio + parc.</div>
   </div>
-
-  <!-- ESCOLA -->
-  <div id="cardapio-escola" class="festa-panel">
-    <div class="event-card rosa-card">
-      <div class="event-card-label">Festa das Colegas de Escola</div>
-      <div class="event-card-title">10h — salgados, hambúrguer interativo e limonada rosa</div>
-      <div class="event-card-sub">13 meninas de 10 anos · Tema rosa · Salão ASSGAPA</div>
-    </div>
-    <div class="stats-row">
-      <div class="stat-box"><div class="stat-num">13</div><div class="stat-label">Meninas</div></div>
-      <div class="stat-box"><div class="stat-num">70</div><div class="stat-label">Salgados</div></div>
-      <div class="stat-box"><div class="stat-num">80</div><div class="stat-label">Docinhos</div></div>
-    </div>
-    <div class="sh">Sequência de serviço</div>
-    <div class="tbl-wrap">
-      <table>
-        <thead><tr><th>Prato</th><th>Qtd</th><th>Horário</th></tr></thead>
-        <tbody>
-          <tr><td>Pastel de carne <span style="color:var(--cinza-leve);font-size:0.75rem">pronto</span></td><td>15 un</td><td>10h</td></tr>
-          <tr><td>Pastel de frango <span style="color:var(--cinza-leve);font-size:0.75rem">pronto</span></td><td>15 un</td><td>10h</td></tr>
-          <tr><td>Bolinha de queijo <span style="color:var(--cinza-leve);font-size:0.75rem">pronto</span></td><td>20 un</td><td>10h</td></tr>
-          <tr><td>Enroladinho de salsicha <span style="color:var(--cinza-leve);font-size:0.75rem">pronto</span></td><td>20 un</td><td>10h</td></tr>
-          <tr><td class="td-strong">Mini hambúrguer interativo</td><td>40 un</td><td>11h30</td></tr>
-          <tr><td>Brigadeiro <span style="color:var(--cinza-leve);font-size:0.75rem">pronto</span></td><td>40 un</td><td>todo evento</td></tr>
-          <tr><td>Branquinho <span style="color:var(--cinza-leve);font-size:0.75rem">pronto</span></td><td>40 un</td><td>todo evento</td></tr>
-          <tr><td class="td-strong">Limonada rosa com morango</td><td>~5 kg</td><td>todo evento</td></tr>
-          <tr><td class="td-strong">Bolo de aniversário</td><td>1</td><td class="td-rosa">12h30</td></tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="sh">Análise de quantidades</div>
-    <div class="tbl-wrap">
-      <table>
-        <thead><tr><th>Item</th><th>Total</th><th>p/ pessoa</th></tr></thead>
-        <tbody>
-          <tr><td>Salgados</td><td>70 un</td><td>~5,4</td></tr>
-          <tr><td>Mini hambúrguer</td><td>40 un</td><td>~3</td></tr>
-          <tr><td>Docinhos</td><td>80 un</td><td>~6</td></tr>
-          <tr><td>Limonada</td><td>~5 kg</td><td>~385g</td></tr>
-        </tbody>
-      </table>
-    </div>
+  <div class="kpi">
+    <div class="kpi-l">Patrimônio líquido</div>
+    <div class="kpi-v" style="color:#2D6010">~R$ 234k</div>
+    <div class="kpi-s">Icatu + FGTS estimado</div>
   </div>
-</section>
-
-<!-- ════════════════ RECEITAS ════════════════ -->
-<section id="sec-receitas" class="section">
-  <div class="festa-switch">
-    <button class="festa-btn active" onclick="switchFesta('receitas','familia',this)">🌿 Família</button>
-    <button class="festa-btn" onclick="switchFesta('receitas','escola',this)">🌸 Escola</button>
+  <div class="kpi">
+    <div class="kpi-l">Juros cheque BB / mês</div>
+    <div class="kpi-v" style="color:#B03030">R$ 358</div>
+    <div class="kpi-s">2,98% a.m. · urgente</div>
   </div>
+</div>
 
-  <!-- FAMÍLIA -->
-  <div id="receitas-familia" class="festa-panel active">
+<!-- NAV -->
+<div class="nav-wrap">
+  <nav class="nav">
+    <button class="nb on" onclick="go('fluxo',this)">Fluxo</button>
+    <button class="nb" onclick="go('parcelas',this)">Parcelas</button>
+    <button class="nb" onclick="go('dividas',this)">Dívidas</button>
+    <button class="nb" onclick="go('checklist',this)">Checklist</button>
+    <button class="nb" onclick="go('pendencias',this)">Pendências</button>
+  </nav>
+</div>
 
-    <div class="recipe" id="r1">
-      <button class="recipe-trigger" onclick="toggleRecipe('r1')">
-        <span class="recipe-name">Tulipa de Frango — marinada 8 kg</span>
-        <span class="recipe-chevron">▾</span>
-      </button>
-      <div class="recipe-body">
-        <div class="r-label">Ingredientes</div>
-        <div class="r-ing">180 g alho · 120 g sal · 40 g páprica defumada · 20 g páprica doce</div>
-        <div class="r-ing">15 g pimenta-do-reino · 120 g suco de limão · 250 g óleo ou azeite</div>
-        <div class="r-ing">40 g orégano · 30 g chimichurri seco · 2.000 g água gelada</div>
-        <div class="r-label">Preparo</div>
-        <div class="r-step"><span class="r-n rosa">1</span><span>Mistura tudo. Mergulha as tulipas. Geladeira mínimo 12h, ideal 18h.</span></div>
-        <div class="r-step"><span class="r-n rosa">2</span><span>No espeto: calor médio por 40 min. Aproxima da brasa nos últimos 15 min para crosta.</span></div>
-        <div class="r-step"><span class="r-n rosa">3</span><span>8 espetos de 8–10 tulipas. Trabalha em duas levas de 4 se necessário.</span></div>
-        <div class="r-note">⚠ Duas zonas de calor: forte e médio. Fogo violento queima rápido.</div>
+<div class="content">
+
+  <!-- ══ FLUXO ══ -->
+  <div id="s-fluxo" class="sec on">
+    <div class="alert">
+      <div class="alert-t">Julho começa no vermelho</div>
+      <div class="alert-b">Fixas + parcelas BB somam R$ 15.291. Com receita de R$ 14.700, o mês já começa R$ 591 negativo antes de qualquer gasto variável.</div>
+    </div>
+
+    <div class="block">
+      <div class="block-t">Entradas mensais</div>
+      <div class="row">
+        <div class="rl">JG — Fraport Brasil<small>CLT · líquido</small></div>
+        <div class="rv g">R$ 10.100</div>
+      </div>
+      <div class="row">
+        <div class="rl">Morgana<small>CLT · líquido</small></div>
+        <div class="rv g">R$ 4.600</div>
+      </div>
+      <div class="div"></div>
+      <div class="row">
+        <div class="rl" style="font-weight:500;color:var(--text)">Total</div>
+        <div class="rv g" style="font-size:17px">R$ 14.700</div>
       </div>
     </div>
 
-    <div class="recipe" id="r2">
-      <button class="recipe-trigger" onclick="toggleRecipe('r2')">
-        <span class="recipe-name">Matambrito Suíno — 7 kg total</span>
-        <span class="recipe-chevron">▾</span>
-      </button>
-      <div class="recipe-body">
-        <div class="r-label">Finalização queijo/orégano (3 kg) · Onda 1</div>
-        <div class="r-ing">500 g mussarela · parmesão a gosto · orégano · azeite · cebola roxa fina opcional</div>
-        <div class="r-label">Finalização pizza (4 kg) · Onda 2</div>
-        <div class="r-ing">500 g molho de tomate — pouco · 700 g mussarela · 2 pimentões em tiras · orégano · azeite</div>
-        <div class="r-label">Preparo</div>
-        <div class="r-step"><span class="r-n rosa">1</span><span>Churrasqueira com sal grosso, calor médio. Matambrito é fino — assa em ~20 min.</span></div>
-        <div class="r-step"><span class="r-n rosa">2</span><span>Onda 1: finaliza queijo/orégano primeiro. Mussarela + parmesão, tampa 5 min.</span></div>
-        <div class="r-step"><span class="r-n rosa">3</span><span>Onda 2: no intervalo do jogo. Pouco molho, mussarela, pimentão. Gratina.</span></div>
-        <div class="r-note">⚠ Não finaliza os dois ao mesmo tempo.</div>
+    <div class="block">
+      <div class="block-t">Saídas fixas mapeadas</div>
+      <div class="row"><div class="rl">Fatura BB<small>média 6 meses</small></div><div class="rv r">R$ 11.982</div></div>
+      <div class="row"><div class="rl">Aluguel<small>Mario Geisel</small></div><div class="rv r">R$ 2.058</div></div>
+      <div class="row"><div class="rl">Veículo Stellantis<small>até mar/27</small></div><div class="rv r">R$ 1.237</div></div>
+      <div class="row"><div class="rl">Escola Maria</div><div class="rv r">R$ 1.222</div></div>
+      <div class="row"><div class="rl">Fatura C6<small>média 5 meses</small></div><div class="rv r">R$ 1.578</div></div>
+      <div class="row"><div class="rl">Unicred<small>fatura</small></div><div class="rv r">R$ 828</div></div>
+      <div class="row"><div class="rl">Cristina<small>diarista</small></div><div class="rv r">R$ 600</div></div>
+      <div class="row"><div class="rl">KNN Idiomas<small>inglês · Maria</small></div><div class="rv r">R$ 291</div></div>
+      <div class="row"><div class="rl">Maria Gym</div><div class="rv r">R$ 260</div></div>
+      <div class="row"><div class="rl">Energia RGE</div><div class="rv r">R$ 246</div></div>
+      <div class="row"><div class="rl">Internet Claro</div><div class="rv r">R$ 217</div></div>
+      <div class="row"><div class="rl">SmartFit<small>JG + Morgana</small></div><div class="rv r">R$ 214</div></div>
+      <div class="row"><div class="rl">ASSGAPA</div><div class="rv r">R$ 113</div></div>
+      <div class="row"><div class="rl">Tarifa BB</div><div class="rv r">R$ 37</div></div>
+      <div class="div"></div>
+      <div class="row">
+        <div class="rl" style="font-weight:500;color:var(--text)">Total fixas</div>
+        <div class="rv r" style="font-size:17px">~R$ 11.853</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ PARCELAS ══ -->
+  <div id="s-parcelas" class="sec">
+    <div class="sec-hero">
+      <div class="sec-hero-eye">Comprometimento futuro</div>
+      <div class="sec-hero-val" style="color:#0C447C">R$ 10.199</div>
+      <div class="sec-hero-sub">parcelas BB + C6 ainda a vencer</div>
+    </div>
+
+    <div class="block">
+      <div class="block-t">Por mês · BB + C6 · em BRL</div>
+      <div id="netRows"></div>
+      <div style="display:flex;gap:14px;margin-top:14px;font-size:11px;color:var(--text3)">
+        <span style="display:flex;align-items:center;gap:5px">
+          <span style="width:8px;height:8px;border-radius:2px;background:#378ADD;display:inline-block"></span>BB
+        </span>
+        <span style="display:flex;align-items:center;gap:5px">
+          <span style="width:8px;height:8px;border-radius:2px;background:#1D9E75;display:inline-block"></span>C6
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ DÍVIDAS ══ -->
+  <div id="s-dividas" class="sec">
+    <div class="sec-hero">
+      <div class="sec-hero-eye">Total de dívidas</div>
+      <div class="sec-hero-val" style="color:#B03030">R$ 28.128</div>
+      <div class="sec-hero-sub">cheque especial · colégio · parcelamentos</div>
+    </div>
+
+    <div class="block">
+      <div class="block-t">Detalhamento</div>
+      <div class="row">
+        <div class="rl">Cheque especial BB<small>2,98% a.m. · ~R$ 358/mês em juros</small></div>
+        <div class="rr"><div class="rv r">R$ 12.000</div><span class="pill r">urgente</span></div>
+      </div>
+      <div class="row">
+        <div class="rl">Parcelas BB em aberto<small>Jul/26 → Jan/27</small></div>
+        <div class="rr"><div class="rv r">R$ 8.114</div><span class="pill b">parcelado</span></div>
+      </div>
+      <div class="row">
+        <div class="rl">Colégio Maria<small>negociar parcelamento s/ juros</small></div>
+        <div class="rr"><div class="rv r">R$ 5.756</div><span class="pill a">pendente</span></div>
+      </div>
+      <div class="row">
+        <div class="rl">Parcelas C6 em aberto<small>Set · Out · Dez/26</small></div>
+        <div class="rr"><div class="rv r">R$ 2.085</div><span class="pill p">parcelado</span></div>
+      </div>
+      <div class="row">
+        <div class="rl">Cheque especial C6<small>3,19% a.m. · quase zerado</small></div>
+        <div class="rr"><div class="rv r">R$ 173</div><span class="pill g">controlado</span></div>
+      </div>
+      <div class="div"></div>
+      <div class="row">
+        <div class="rl" style="font-weight:500;color:var(--text)">Total</div>
+        <div class="rv r" style="font-size:17px">R$ 28.128</div>
       </div>
     </div>
 
-    <div class="recipe" id="r3">
-      <button class="recipe-trigger" onclick="toggleRecipe('r3')">
-        <span class="recipe-name">Pão de Alho Parrillero — 7 baguetes</span>
-        <span class="recipe-chevron">▾</span>
-      </button>
-      <div class="recipe-body">
-        <div class="r-label">Recheio base (preparar no D-1)</div>
-        <div class="r-ing">400 g manteiga amolecida · 250 g maionese · 120 g alho assado</div>
-        <div class="r-ing">500 g mussarela ralada · 120 g parmesão</div>
-        <div class="r-ing">Salsinha fresca — adicionar SOMENTE no dia do evento (14h15)</div>
-        <div class="r-label">Preparo</div>
-        <div class="r-step"><span class="r-n rosa">1</span><span>D-1 às 15h: assa cabeças de alho inteiras, 180°C, 40 min.</span></div>
-        <div class="r-step"><span class="r-n rosa">2</span><span>D-1 às 15h45: mistura manteiga + maionese + alho + queijos. Geladeira. Sem salsinha.</span></div>
-        <div class="r-step"><span class="r-n rosa">3</span><span>Dia do evento às 14h15: adiciona salsinha fresca. Volta à geladeira.</span></div>
-        <div class="r-step"><span class="r-n rosa">4</span><span>Na hora: corta baguete em grade, recheia, papel alumínio. 15–20 min na churrasqueira. Abre no final para crosta.</span></div>
-        <div class="r-note">⚠ Salsinha nunca pernoita misturada — amarga e perde cor.</div>
+    <div class="block">
+      <div class="block-t">Opções para liquidar cheque BB</div>
+      <div class="row">
+        <div class="rl">Consignado BB disponível<small>24x R$ 752,57 · substitui juros por parcela fixa</small></div>
+        <span class="pill g">recomendado</span>
+      </div>
+      <div class="row">
+        <div class="rl">Empréstimo Icatu<small>aguardando retorno</small></div>
+        <span class="pill a">pendente</span>
       </div>
     </div>
 
-    <div class="recipe" id="r4">
-      <button class="recipe-trigger" onclick="toggleRecipe('r4')">
-        <span class="recipe-name">Quentão Vinho Tinto + Cachaça — 8 kg</span>
-        <span class="recipe-chevron">▾</span>
-      </button>
-      <div class="recipe-body">
-        <div class="r-label">Ingredientes</div>
-        <div class="r-ing">1.500 g vinho tinto seco · 500 g cachaça envelhecida · 1.500 g água</div>
-        <div class="r-ing">400 g açúcar demerara ou cristal · 4 paus canela · 15 cravos · 4 anis estrelado</div>
-        <div class="r-ing">100 g gengibre fresco · cascas de 2 laranjas · casca de 1 limão</div>
-        <div class="r-label">Preparo</div>
-        <div class="r-step"><span class="r-n rosa">1</span><span>Dissolve açúcar na água em fogo médio até dourar levemente.</span></div>
-        <div class="r-step"><span class="r-n rosa">2</span><span>Adiciona especiarias e cascas. 5 min em fogo baixo.</span></div>
-        <div class="r-step"><span class="r-n rosa">3</span><span>Entra o vinho. Aquece até ~80°C — bordas borbulhando, sem ferver.</span></div>
-        <div class="r-step"><span class="r-n rosa">4</span><span>Fora do fogo: entra a cachaça. Tampa. 15 min. Mantém em fogo mínimo.</span></div>
-        <div class="r-note">⚠ Cachaça sempre fora do fogo. Rende ~45–50 doses de 160g.</div>
+    <div class="block">
+      <div class="block-t">Patrimônio</div>
+      <div class="row">
+        <div class="rl">Previdência Icatu<small>8% JG + match empresa</small></div>
+        <div class="rv g">R$ 151.802</div>
       </div>
-    </div>
-
-    <div class="recipe" id="r5">
-      <button class="recipe-trigger" onclick="toggleRecipe('r5')">
-        <span class="recipe-name">Cuca de Goiabada com Flor de Sal — 2 formas</span>
-        <span class="recipe-chevron">▾</span>
-      </button>
-      <div class="recipe-body">
-        <div class="r-label">Esponja única</div>
-        <div class="r-ing">200 g farinha · 200 g leite morno · 8 g fermento biológico seco · 30 g açúcar</div>
-        <div class="r-label">Massa</div>
-        <div class="r-ing">280 g farinha · 100 g ovos (2 médios) · 80 g açúcar · 100 g manteiga derretida fria</div>
-        <div class="r-ing">70 g creme de leite · 40 g leite</div>
-        <div class="r-label">Goiabada cremosa</div>
-        <div class="r-ing">560 g goiabada · 120 g água · 30 g manteiga · 0,5 g flor de sal (pitada única)</div>
-        <div class="r-label">Farofa</div>
-        <div class="r-ing">200 g farinha · 160 g açúcar · 120 g manteiga gelada · 6 g canela em pó</div>
-        <div class="r-label">Preparo</div>
-        <div class="r-step"><span class="r-n">1</span><span>Esponja: mistura tudo, cobre, 30–45 min até pico de bolhas.</span></div>
-        <div class="r-step"><span class="r-n">2</span><span>Goiabada: fogo baixo até ~480g após redução. Flor de sal abre o buquê — não aumenta a dose.</span></div>
-        <div class="r-step"><span class="r-n">3</span><span>Farofa: secos + manteiga gelada em cubos, grumos úmidos. Geladeira.</span></div>
-        <div class="r-step"><span class="r-n">4</span><span>Massa: na esponja no pico, adiciona ovos, açúcar, manteiga, creme, leite. Farinha. Sova 6–8 min.</span></div>
-        <div class="r-step"><span class="r-n">5</span><span>⚠ PONTO CRÍTICO: fermentação parcial 50–60% — NÃO dobra. Tigela coberta na geladeira (D-2). Não monta nas formas ainda.</span></div>
-        <div class="r-step"><span class="r-n">6</span><span>D-1 às 22h: retira massa 15 min. Monta nas formas: massa → goiabada irregular → farofa. Geladeira 10–12h (máx 14h).</span></div>
-        <div class="r-step"><span class="r-n">7</span><span>Dia do evento: retira às 13h30. Aclimatação 45–60 min. 180°C por 35–40 min.</span></div>
-        <div class="r-note">⚠ Flor de sal SOMENTE na goiabada (0,5g). Sem flor de sal na massa nem na farofa.</div>
-        <div class="r-note">⚠ Serve em até 24h para máxima textura de farofa.</div>
+      <div class="row">
+        <div class="rl">FGTS — ambos<small>estimado · a confirmar</small></div>
+        <div class="rr"><div class="rv g">~R$ 110.000</div><span class="pill a">não confirmado</span></div>
       </div>
-    </div>
-
-    <div class="recipe" id="r6">
-      <button class="recipe-trigger" onclick="toggleRecipe('r6')">
-        <span class="recipe-name">Cuca de Banana com Doce de Leite — 2 formas</span>
-        <span class="recipe-chevron">▾</span>
-      </button>
-      <div class="recipe-body">
-        <div class="r-label">Esponja única</div>
-        <div class="r-ing">200 g farinha · 200 g leite morno · 6 g fermento biológico seco · 30 g açúcar</div>
-        <div class="r-label">Massa</div>
-        <div class="r-ing">200 g farinha · 100 g ovos (2 médios) · 70 g açúcar · 100 g manteiga derretida fria · 4 g sal</div>
-        <div class="r-label">Recheio — ordem importa</div>
-        <div class="r-ing">360 g banana prata ou nanica fatiada em 1 cm (~6 unidades)</div>
-        <div class="r-ing">300 g doce de leite firme — não pastoso</div>
-        <div class="r-label">Farofa</div>
-        <div class="r-ing">200 g farinha · 200 g açúcar · 100 g manteiga gelada · 6 g canela em pó</div>
-        <div class="r-label">Preparo</div>
-        <div class="r-step"><span class="r-n">1</span><span>Esponja: mistura tudo, 30–45 min até triplicar.</span></div>
-        <div class="r-step"><span class="r-n">2</span><span>Farofa: secos + manteiga gelada, grumos grandes. Geladeira.</span></div>
-        <div class="r-step"><span class="r-n">3</span><span>Massa: na esponja no pico, adiciona tudo. Farinha aos poucos. Massa pegajosa, não sovar demais.</span></div>
-        <div class="r-step"><span class="r-n">4</span><span>Fermentação parcial 50–60% — NÃO dobra. Tigela coberta na geladeira (D-2).</span></div>
-        <div class="r-step"><span class="r-n">5</span><span>⚠ MONTAGEM — ORDEM: banana primeiro (barreira contra umidade) → doce de leite em colheradas → farofa.</span></div>
-        <div class="r-step"><span class="r-n">6</span><span>D-1 às 22h20: monta nas formas. Filme plástico. Geladeira 10–12h. Máx 14h.</span></div>
-        <div class="r-step"><span class="r-n">7</span><span>Dia do evento: retira às 13h30. 180°C por 35–40 min.</span></div>
-        <div class="r-note">⚠ Doce de leite firme, não pastoso.</div>
-        <div class="r-note">⚠ Fermento 6g, não 8g — essencial para fermentação fria.</div>
+      <div class="row">
+        <div class="rl">Reserva de emergência<small>meta: 6× fixas = R$ 71k</small></div>
+        <div class="rr"><div class="rv r">R$ 0</div><span class="pill r">inexistente</span></div>
+      </div>
+      <div class="div"></div>
+      <div class="row">
+        <div class="rl" style="font-weight:500;color:var(--text)">Patrimônio líquido (est.)</div>
+        <div class="rv g" style="font-size:17px">~R$ 234k</div>
       </div>
     </div>
 
   </div>
 
-  <!-- ESCOLA -->
-  <div id="receitas-escola" class="festa-panel">
+  <!-- ══ CHECKLIST ══ -->
+  <div id="s-checklist" class="sec">
+    <div class="sec-hero">
+      <div class="sec-hero-eye">Jul / 2026</div>
+      <div class="sec-hero-val" id="heroProgress" style="color:#2D6010">0 / 13</div>
+      <div class="sec-hero-sub">pagamentos concluídos</div>
+    </div>
 
-    <div class="recipe" id="r7">
-      <button class="recipe-trigger" onclick="toggleRecipe('r7')">
-        <span class="recipe-name">Mini Hambúrguer Interativo — ~40 unidades</span>
-        <span class="recipe-chevron">▾</span>
-      </button>
-      <div class="recipe-body">
-        <div class="r-label">Ingredientes</div>
-        <div class="r-ing">1.200 g blend de carne 80/20 · sal e pimenta a gosto</div>
-        <div class="r-ing">40 pães de mini hambúrguer · 300 g queijo fatiado</div>
-        <div class="r-ing">1 pé alface · 3 tomates · 300 g ketchup · 150 g mostarda · 200 g maionese</div>
-        <div class="r-label">Preparo</div>
-        <div class="r-step"><span class="r-n">1</span><span>D-1: molda ~30g cada, tempera, empilha com papel manteiga. Geladeira.</span></div>
-        <div class="r-step"><span class="r-n">2</span><span>No dia: chapa bem quente. Grelha ~2 min cada lado. Queijo e tampa 30 seg.</span></div>
-        <div class="r-step"><span class="r-n">3</span><span>Mesa de montagem: potes com todos os ingredientes separados. As meninas montam.</span></div>
-        <div class="r-note">⚠ 1ª rodada às 11h30 · 2ª rodada às 12h15 se necessário.</div>
+    <div class="prog-wrap">
+      <div class="prog-header">
+        <span class="prog-lbl">Progresso do mês</span>
+        <span class="prog-count" id="progCount">0%</span>
+      </div>
+      <div class="prog-track"><div class="prog-fill" id="progFill" style="width:0%"></div></div>
+    </div>
+
+    <div class="block">
+      <div id="ckList"></div>
+    </div>
+
+    <div class="sync-bar">
+      <div class="sync-dot" id="syncDot"></div>
+      <span class="sync-txt" id="syncTxt">Não sincronizado</span>
+    </div>
+
+    <div class="guide">
+      <div class="guide-t">Como compartilhar com a Morgana</div>
+      <div class="guide-step">
+        <div class="step-n">1</div>
+        <div class="step-txt">Acessa <strong>gist.github.com</strong>, cria um novo gist. No campo de nome digita <code>jg_fin.json</code>, no conteúdo digita <code>{}</code> e clica em <strong>Create secret gist</strong>. O ID está na URL — é a sequência de letras e números após o teu usuário.</div>
+      </div>
+      <div class="guide-step">
+        <div class="step-n">2</div>
+        <div class="step-txt">No GitHub vai em <strong>Settings → Developer settings → Personal access tokens → Tokens (classic)</strong>. Gera um token marcando só a permissão <strong>gist</strong>. Copia o token (começa com <code>ghp_</code>).</div>
+      </div>
+      <div class="guide-step">
+        <div class="step-n">3</div>
+        <div class="step-txt">Cola o Gist ID e o token no campo abaixo e toca em <strong>Salvar</strong>. A Morgana faz o mesmo passo 3 no iPhone dela — a partir daí o checklist fica sincronizado entre os dois dispositivos.</div>
       </div>
     </div>
 
-    <div class="recipe" id="r8">
-      <button class="recipe-trigger" onclick="toggleRecipe('r8')">
-        <span class="recipe-name">Limonada Rosa com Morango — ~5 litros</span>
-        <span class="recipe-chevron">▾</span>
-      </button>
-      <div class="recipe-body">
-        <div class="r-label">Ingredientes</div>
-        <div class="r-ing">800 g limão tahiti (~15 un) · 400 g morango fresco</div>
-        <div class="r-ing">395 g leite condensado (1 lata) · 2.000 g água gelada · 1.500 g gelo</div>
-        <div class="r-ing">50 g açúcar refinado (ajuste a gosto)</div>
-        <div class="r-label">Preparo</div>
-        <div class="r-step"><span class="r-n">1</span><span>Reserva 6–8 morangos para decoração.</span></div>
-        <div class="r-step"><span class="r-n">2</span><span>Bate morangos + leite condensado + 500g água até creme rosado. Não coar.</span></div>
-        <div class="r-step"><span class="r-n">3</span><span>Esprema limões no liquidificador com a base. Bate 20 seg. Limão sempre por último.</span></div>
-        <div class="r-step"><span class="r-n">4</span><span>Adiciona restante da água e açúcar. Jarra com gelo. Decora com morangos e rodelas de limão.</span></div>
-        <div class="r-note">⚠ Faz no máximo 1h antes — morango oxida e perde a cor rosa.</div>
-        <div class="r-note">⚠ Deixa base batida sem gelo na geladeira para reposição.</div>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-<!-- ════════════════ PLANO ════════════════ -->
-<section id="sec-plano" class="section">
-  <div class="festa-switch">
-    <button class="festa-btn active" onclick="switchFesta('plano','familia',this)">🌿 Família</button>
-    <button class="festa-btn" onclick="switchFesta('plano','escola',this)">🌸 Escola</button>
-  </div>
-
-  <!-- FAMÍLIA -->
-  <div id="plano-familia" class="festa-panel active">
-
-    <div class="day-block" id="d1">
-      <button class="day-trigger" onclick="toggleDay('d1')">
-        <div><div class="day-title">D-2 · Noite — cucas: massas e componentes</div><div class="day-sub">Não monta nas formas ainda</div></div>
-        <span class="day-arrow">▾</span>
-      </button>
-      <div class="day-body">
-        <div class="alert">Prepara massas e componentes. As formas só são montadas no D-1 à noite para respeitar a janela de fermentação fria.</div>
-        <div class="tl">
-          <div class="tl-row"><div class="tl-t">19h00</div><div class="tl-d">Esponja da cuca de goiabada</div></div>
-          <div class="tl-row"><div class="tl-t">19h45</div><div class="tl-d">Goiabada cremosa — esfria completamente, geladeira</div></div>
-          <div class="tl-row"><div class="tl-t">20h00</div><div class="tl-d">Farofa da goiabada — geladeira imediatamente</div></div>
-          <div class="tl-row"><div class="tl-t">20h15</div><div class="tl-d">Massa da goiabada</div></div>
-          <div class="tl-row hl"><div class="tl-t">21h00</div><div class="tl-d">⚠ Fermentação parcial 50–60% — NÃO dobra</div></div>
-          <div class="tl-row"><div class="tl-t">21h45</div><div class="tl-d">Massa → tigela coberta na geladeira. Não monta nas formas.</div></div>
-          <div class="tl-row"><div class="tl-t">22h00</div><div class="tl-d">Esponja da cuca de banana</div></div>
-          <div class="tl-row"><div class="tl-t">22h45</div><div class="tl-d">Farofa da banana — geladeira</div></div>
-          <div class="tl-row"><div class="tl-t">23h00</div><div class="tl-d">Massa da banana</div></div>
-          <div class="tl-row hl"><div class="tl-t">23h45</div><div class="tl-d">⚠ Fermentação parcial 50–60% — monitora</div></div>
-          <div class="tl-row"><div class="tl-t">00h30</div><div class="tl-d">Massa → tigela coberta na geladeira.</div></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="day-block" id="d2">
-      <button class="day-trigger" onclick="toggleDay('d2')">
-        <div><div class="day-title">D-1 · Manhã e Tarde — marinada, alho e pão</div><div class="day-sub">Tulipas na marinada às 14h → prontas às 8h do dia seguinte</div></div>
-        <span class="day-arrow">▾</span>
-      </button>
-      <div class="day-body">
-        <div class="tl">
-          <div class="tl-row"><div class="tl-t">14h00</div><div class="tl-d">Marinada das tulipas — geladeira 18h ✓</div></div>
-          <div class="tl-row"><div class="tl-t">15h00</div><div class="tl-d">Assa cabeças de alho inteiras: 180°C, 40 min</div></div>
-          <div class="tl-row"><div class="tl-t">15h45</div><div class="tl-d">Recheio do pão de alho: manteiga + maionese + alho assado + queijos. Geladeira. Sem salsinha.</div></div>
-          <div class="tl-row"><div class="tl-t">16h00</div><div class="tl-d">Confere mise en place: proteínas, temperos, utensílios, carvão, papel alumínio</div></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="day-block" id="d3">
-      <button class="day-trigger" onclick="toggleDay('d3')">
-        <div><div class="day-title">D-1 · Noite — montagem das cucas</div><div class="day-sub">Formas às 22h → retirada às 13h30 = 15h30 de frio ✓</div></div>
-        <span class="day-arrow">▾</span>
-      </button>
-      <div class="day-body">
-        <div class="tl">
-          <div class="tl-row"><div class="tl-t">21h30</div><div class="tl-d">Retira massas da geladeira — relaxa 15–20 min</div></div>
-          <div class="tl-row"><div class="tl-t">22h00</div><div class="tl-d">Monta goiabada: massa → goiabada irregular → farofa gelada</div></div>
-          <div class="tl-row"><div class="tl-t">22h20</div><div class="tl-d">Monta banana: massa → banana → doce de leite → farofa gelada</div></div>
-          <div class="tl-row hl-verde"><div class="tl-t">22h30</div><div class="tl-d">Filme plástico → geladeira 3–5°C até o dia seguinte</div></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="day-block open" id="d4">
-      <button class="day-trigger" onclick="toggleDay('d4')">
-        <div><div class="day-title">Dia do evento · 13/06 — timeline completo</div><div class="day-sub">Jogo às 19h · Parabéns no intervalo</div></div>
-        <span class="day-arrow">▾</span>
-      </button>
-      <div class="day-body" style="display:block">
-        <div class="alert">Dois eventos concorrentes: aniversário da Maria (protagonista) + jogo do Brasil às 19h (pano de fundo).</div>
-        <div class="tl">
-          <div class="tl-row"><div class="tl-t">13h30</div><div class="tl-d">Retira cucas da geladeira — aclimatação 45–60 min</div></div>
-          <div class="tl-row"><div class="tl-t">14h00</div><div class="tl-d">Pré-aquece forno 180°C</div></div>
-          <div class="tl-row"><div class="tl-t">14h15</div><div class="tl-d">Adiciona salsinha fresca ao recheio do pão. Volta à geladeira.</div></div>
-          <div class="tl-row"><div class="tl-t">15h00</div><div class="tl-d">Assa cuca de goiabada — 35–40 min</div></div>
-          <div class="tl-row"><div class="tl-t">15h45</div><div class="tl-d">Assa cuca de banana — 35–40 min. Esfria completamente.</div></div>
-          <div class="tl-row hl-verde"><div class="tl-t">17h20</div><div class="tl-d">Acende churrasqueira — brasa firma em ~30–40 min</div></div>
-          <div class="tl-row hl-verde"><div class="tl-t">18h00</div><div class="tl-d">Tulipas nos espetos — zona de calor médio</div></div>
-          <div class="tl-row hl-verde"><div class="tl-t">18h40</div><div class="tl-d">Matambrito entra + pão de alho entra simultâneo</div></div>
-          <div class="tl-row hl"><div class="tl-t">19h00</div><div class="tl-d">🎉 Convidados chegam · 🇧🇷 Jogo começa · Pão de alho na mesa</div></div>
-          <div class="tl-row"><div class="tl-t">19h00</div><div class="tl-d">Matambrito queijo/orégano finaliza — Onda 1 com tulipa</div></div>
-          <div class="tl-row"><div class="tl-t">19h15</div><div class="tl-d">Pão de alho finaliza crosta — na mesa</div></div>
-          <div class="tl-row"><div class="tl-t">19h45</div><div class="tl-d">Tulipa fase final de crosta — mesa completa</div></div>
-          <div class="tl-row hl"><div class="tl-t">20h15</div><div class="tl-d">⚽ Intervalo — Matambrito pizza na mesa (Onda 2)</div></div>
-          <div class="tl-row hl"><div class="tl-t">20h20</div><div class="tl-d">🎂 Parabéns para a Maria</div></div>
-          <div class="tl-row"><div class="tl-t">20h35</div><div class="tl-d">Segundo tempo — quentão começa a circular</div></div>
-          <div class="tl-row hl-verde"><div class="tl-t">22h00</div><div class="tl-d">Fim do jogo — cucas na mesa</div></div>
-        </div>
+    <div class="form-block">
+      <div class="block-t">Configurar sincronização</div>
+      <input class="fi" id="gistId"    type="text"     placeholder="Gist ID">
+      <input class="fi" id="gistToken" type="password" placeholder="Token GitHub  (ghp_...)">
+      <div class="fb">
+        <button class="fbt" onclick="saveConfig()">Salvar</button>
+        <button class="fbt" onclick="syncNow()">Sincronizar agora</button>
       </div>
     </div>
 
   </div>
 
-  <!-- ESCOLA -->
-  <div id="plano-escola" class="festa-panel">
+  <!-- ══ PENDÊNCIAS ══ -->
+  <div id="s-pendencias" class="sec">
+    <div class="sec-hero">
+      <div class="sec-hero-eye">Em aberto</div>
+      <div class="sec-hero-val" style="color:#B03030">6 itens</div>
+      <div class="sec-hero-sub">2 urgentes · 4 pendentes</div>
+    </div>
 
-    <div class="day-block" id="e1">
-      <button class="day-trigger" onclick="toggleDay('e1')">
-        <div><div class="day-title">D-1 · Tarde e noite — preparação</div></div>
-        <span class="day-arrow">▾</span>
-      </button>
-      <div class="day-body">
-        <div class="tl">
-          <div class="tl-row"><div class="tl-t">Manhã</div><div class="tl-d">Retira salgados e docinhos prontos — confirma quantidades</div></div>
-          <div class="tl-row"><div class="tl-t">Tarde</div><div class="tl-d">Molda mini hambúrgueres (~30g), tempera, empilha com papel manteiga. Geladeira.</div></div>
-          <div class="tl-row"><div class="tl-t">Tarde</div><div class="tl-d">Mise en place da mesa de montagem: potes, tábuas, molhos, etiquetas</div></div>
-          <div class="tl-row"><div class="tl-t">Noite</div><div class="tl-d">Separa morango e limão para limonada — geladeira</div></div>
-          <div class="tl-row"><div class="tl-t">Noite</div><div class="tl-d">Lista de convidados em ordem alfabética para entrega no salão</div></div>
-        </div>
+    <div class="block">
+      <div class="block-t">Urgentes</div>
+      <div class="row">
+        <div class="rl">Negociação colégio Maria<small>parcelamento sem juros · R$ 5.756 em aberto</small></div>
+        <span class="pill r">urgente</span>
+      </div>
+      <div class="row">
+        <div class="rl">Decisão consignado BB<small>24x R$ 752,57 · elimina R$ 358/mês em juros</small></div>
+        <span class="pill r">urgente</span>
       </div>
     </div>
 
-    <div class="day-block open" id="e2">
-      <button class="day-trigger" onclick="toggleDay('e2')">
-        <div><div class="day-title">Dia do evento · 13/06 — 10h às 14h</div></div>
-        <span class="day-arrow">▾</span>
-      </button>
-      <div class="day-body" style="display:block">
-        <div class="tl">
-          <div class="tl-row hl-verde"><div class="tl-t">08h30</div><div class="tl-d">Recebe salão — vistoria. Monta decoração rosa, mesa de doces, mesa de montagem.</div></div>
-          <div class="tl-row"><div class="tl-t">09h00</div><div class="tl-d">Posiciona docinhos. Organiza salgados em bandejas.</div></div>
-          <div class="tl-row"><div class="tl-t">09h30</div><div class="tl-d">Prepara limonada rosa — geladeira. Base reserva separada sem gelo.</div></div>
-          <div class="tl-row"><div class="tl-t">09h45</div><div class="tl-d">Aquece chapa para os mini hambúrgueres</div></div>
-          <div class="tl-row hl"><div class="tl-t">10h00</div><div class="tl-d">🎉 Evento começa — salgados, limonada e docinhos na mesa</div></div>
-          <div class="tl-row"><div class="tl-t">10h–11h30</div><div class="tl-d">Salgados à disposição. Repõe conforme necessário.</div></div>
-          <div class="tl-row hl"><div class="tl-t">11h30</div><div class="tl-d">🍔 Prato principal — 1ª rodada. Mesa de montagem aberta.</div></div>
-          <div class="tl-row"><div class="tl-t">11h45</div><div class="tl-d">Reposição de limonada com base reservada e gelo</div></div>
-          <div class="tl-row"><div class="tl-t">12h15</div><div class="tl-d">2ª rodada de hambúrgueres se necessário</div></div>
-          <div class="tl-row hl"><div class="tl-t">12h30</div><div class="tl-d">🎂 Bolo e parabéns para a Maria</div></div>
-          <div class="tl-row"><div class="tl-t">13h00</div><div class="tl-d">Mesa livre — docinhos, sucos, limonada</div></div>
-          <div class="tl-row hl-verde"><div class="tl-t">14h00</div><div class="tl-d">Encerramento — chama Diretor para vistoria final</div></div>
-        </div>
+    <div class="block">
+      <div class="block-t">Pendentes</div>
+      <div class="row">
+        <div class="rl">Resposta Icatu<small>empréstimo sobre previdência</small></div>
+        <span class="pill a">pendente</span>
+      </div>
+      <div class="row">
+        <div class="rl">Confirmar saldo FGTS<small>ambos · estimado em R$ 110k</small></div>
+        <span class="pill a">pendente</span>
+      </div>
+      <div class="row">
+        <div class="rl">Limites Unicred e XP<small>não informados</small></div>
+        <span class="pill a">pendente</span>
+      </div>
+      <div class="row">
+        <div class="rl">Extrato completo Morgana<small>CC + cartões · energia, escola, fixas</small></div>
+        <span class="pill a">pendente</span>
       </div>
     </div>
-
-  </div>
-</section>
-
-<!-- ════════════════ COMPRAS ════════════════ -->
-<section id="sec-compras" class="section">
-  <div class="progress-bar-wrap">
-    <div class="pb-top"><span>Itens comprados</span><span id="pb-label">0 / 0</span></div>
-    <div class="pb-track"><div class="pb-fill" id="pb-fill" style="width:0%"></div></div>
   </div>
 
-  <div class="chk-group">
-    <div class="chk-head">Proteínas e frios</div>
-    <div class="chk-item" onclick="chk(this)"><div class="chk-box"></div><span class="chk-text">Tulipa de frango</span><span class="chk-qty">8 kg</span></div>
-    <div class="chk-item" onclick="chk(this)"><div class="chk-box"></div><span class="chk-text">Matambrito suíno</span><span class="chk-qty">7 kg</span></div>
-    <div class="chk-item" onclick="chk(this)"><div class="chk-box"></div><span class="chk-text">Blend de carne 80/20</span><span class="chk-qty">1.200 g</span></div>
-    <div class="chk-item" onclick="chk(this)"><div class="chk-box"></div><span class="chk-text">Mussarela ralada</span><span class="chk-qty">1,5 kg</span></div>
-    <div class="chk-item" onclick="chk(this)"><div class="chk-box"></div><span class="chk-text">Parmesão</span><span class="chk-qty">300 g</span></div>
-    <div class="chk-item" onclick="chk(this)"><div class="chk-box"></div><span class="chk-text">Queijo fatiado (hambúrguer)</span><span class="chk-qty">300 g</span></div>
-  </div>
-
-  <div class="chk-group">
-    <div class="chk-head">Padaria</div>
-    <div class="chk-item" onclick="chk(this)"><div class="chk-box"></div><span class="chk-text">Baguetes grandes</span><span class="chk-qty">7 un</span></div>
-    <div class="chk-item" onclick="chk(this)"><div class="chk-box"></div><span class="chk-text">Pão de mini hambúrguer</span><span class="chk-qty">40 un</span></div>
-  </div>
-
-  <div class="chk-group">
-    <div class="chk-head">Laticínios e ovos</div>
-    <div class="chk-item" onclick="chk(this)"><div class="chk-box"></div><span class="chk-text">Manteiga (cucas + pão + docinhos)</span><span class="chk-qty">900 g</span></div>
-    <div class="chk-item" onclick="chk(this)"><div class="chk-box"></div><span class="chk-text">Leite integral</span><span class="chk-qty">600 g</span></div>
-    <div class="chk-item" onclick="chk(this)"><div class="chk-box"></div><span class="chk-text">Creme de leite</span><span class="chk-qty">170 g</span></div>
-    <div class="chk-item" onclick="chk(this)"><div class="chk-box"></div><span class="chk-text">Ovos</span><span class="chk-qty">6 un</span></div>
-    <div class="chk-item" onclick="chk(this)"><div class="chk-box"></div><span class="chk-text">Leite condensado</span><span class="chk-qty">3 latas</span></div>
-    <div class="chk-item" onclick="chk(this)"><div class="chk-box"></div><span class="chk-text">Doce de leite firme</span><span class="chk-qty">300 g</span></div>
-  </div>
-
-  <div class="chk-group">
-    <div class="chk-head">Temperos e marinada</div>
-    <div class="chk-item" onclick="chk(this)"><div class="chk-box"></div><span class="chk-text">Alho</span><span class="chk-qty">300 g</span></div>
-    <div class="chk-item" onclick="chk(this)"><div class="chk-box"></div><span class="chk-text">Sal grosso</span><span class="chk-qty">500 g</span></div>
-    <div class="chk-item" onclick="chk(this)"><div class="chk-box"></div><span class="chk-text">Páprica defumada</span><span class="chk-qty">60 g</span></div>
-    <div class="chk-item" onclick="chk(this)"><div class="chk-box"></div><span class="chk-text">Páprica doce</span><span class="chk-qty">30 g</span></div>
-    <div class="chk-item" onclick="chk(this)"><div class="chk-box"></div><span class="chk-text">Pimenta-do-reino</span><span class="chk-qty">30 g</span></div>
-    <div class="chk-item" onclick="chk(this)"><div class="chk-box"></div><span class="chk-text">Orégano</span><span class="chk-qty">60 g</span></div>
-    <div class="chk-item" onclick="chk(this)"><div class="chk-box"></div><span class="chk-text">Chimichurri seco</span><span class="chk-qty">40 g</span></div>
-    <div class="chk-item" onclick="chk(this)"><div class="chk-box"></div><span class="chk-text">Azeite</span><span class="chk-qty">500 g</span></div>
-    <div class="chk-item" onclick="chk(this)"><div class="chk-box"></div><span class="chk-text">Óleo</span><span class="chk-qty">300 g</span></div>
-    <div class="chk-item" onclick="chk(this)"><div class="chk-box"></div><span class="chk-text">Molho de tomate</span><span class="chk-qty">500 g</span></div>
-    <div class="chk-item" onclick="chk(this)"><div class="chk-box"></div><span class="chk-text">Maionese</span><span class="chk-qty">450 g</span></div>
-    <div class="chk-item" onclick="chk(this)"><div class="chk-box"></div><span class="chk-text">Ketchup</span><span class="chk-qty">300 g</span></div>
-    <div class="chk-item" onclick="chk(this)"><div class="chk-box"></div><span class="chk-text">Mostarda</span><span class="chk-qty">150 g</span></div>
-  </div>
-
-  <div class="chk-group">
-    <div class="chk-head">Hortifrúti</div>
-    <div class="chk-item" onclick="chk(this)"><div class="chk-box"></div><span class="chk-text">Limão tahiti</span><span class="chk-qty">1,5 kg</span></div>
-    <div class="chk-item" onclick="chk(this)"><div class="chk-box"></div><span class="chk-text">Pimentão vermelho</span><span class="chk-qty">2 un</span></div>
-    <div class="chk-item" onclick="chk(this)"><div class="chk-box"></div><span class="chk-text">Cebola roxa</span><span class="chk-qty">2 un</span></div>
-    <div class="chk-item" onclick="chk(this)"><div class="chk-box"></div><span class="chk-text">Alface</span><span class="chk-qty">1 pé</span></div>
-    <div class="chk-item" onclick="chk(this)"><div class="chk-box"></div><span class="chk-text">Tomate</span><span class="chk-qty">3 un</span></div>
-    <div class="chk-item" onclick="chk(this)"><div class="chk-box"></div><span class="chk-text">Salsinha</span><span class="chk-qty">1 maço</span></div>
-    <div class="chk-item" onclick="chk(this)"><div class="chk-box"></div><span class="chk-text">Morango fresco</span><span class="chk-qty">400 g</span></div>
-    <div class="chk-item" onclick="chk(this)"><div class="chk-box"></div><span class="chk-text">Banana prata ou nanica</span><span class="chk-qty">360 g</span></div>
-    <div class="chk-item" onclick="chk(this)"><div class="chk-box"></div><span class="chk-text">Gengibre fresco</span><span class="chk-qty">100 g</span></div>
-    <div class="chk-item" onclick="chk(this)"><div class="chk-box"></div><span class="chk-text">Laranja</span><span class="chk-qty">2 un</span></div>
-  </div>
-
-  <div class="chk-group">
-    <div class="chk-head">Confeitaria</div>
-    <div class="chk-item" onclick="chk(this)"><div class="chk-box"></div><span class="chk-text">Farinha de trigo (cucas)</span><span class="chk-qty">2 kg</span></div>
-    <div class="chk-item" onclick="chk(this)"><div class="chk-box"></div><span class="chk-text">Açúcar refinado</span><span class="chk-qty">1 kg</span></div>
-    <div class="chk-item" onclick="chk(this)"><div class="chk-box"></div><span class="chk-text">Açúcar demerara ou cristal</span><span class="chk-qty">400 g</span></div>
-    <div class="chk-item" onclick="chk(this)"><div class="chk-box"></div><span class="chk-text">Fermento biológico seco</span><span class="chk-qty">20 g</span></div>
-    <div class="chk-item" onclick="chk(this)"><div class="chk-box"></div><span class="chk-text">Canela em pó</span><span class="chk-qty">15 g</span></div>
-    <div class="chk-item" onclick="chk(this)"><div class="chk-box"></div><span class="chk-text">Canela em pau</span><span class="chk-qty">4 un</span></div>
-    <div class="chk-item" onclick="chk(this)"><div class="chk-box"></div><span class="chk-text">Cravo</span><span class="chk-qty">15 un</span></div>
-    <div class="chk-item" onclick="chk(this)"><div class="chk-box"></div><span class="chk-text">Anis estrelado</span><span class="chk-qty">4 un</span></div>
-    <div class="chk-item" onclick="chk(this)"><div class="chk-box"></div><span class="chk-text">Goiabada</span><span class="chk-qty">560 g</span></div>
-    <div class="chk-item" onclick="chk(this)"><div class="chk-box"></div><span class="chk-text">Flor de sal</span><span class="chk-qty">10 g</span></div>
-  </div>
-
-  <div class="chk-group">
-    <div class="chk-head">Prontos — festa escola</div>
-    <div class="chk-item" onclick="chk(this)"><div class="chk-box"></div><span class="chk-text">Pastel de carne pronto</span><span class="chk-qty">15 un</span></div>
-    <div class="chk-item" onclick="chk(this)"><div class="chk-box"></div><span class="chk-text">Pastel de frango pronto</span><span class="chk-qty">15 un</span></div>
-    <div class="chk-item" onclick="chk(this)"><div class="chk-box"></div><span class="chk-text">Bolinha de queijo pronta</span><span class="chk-qty">20 un</span></div>
-    <div class="chk-item" onclick="chk(this)"><div class="chk-box"></div><span class="chk-text">Enroladinho de salsicha pronto</span><span class="chk-qty">20 un</span></div>
-    <div class="chk-item" onclick="chk(this)"><div class="chk-box"></div><span class="chk-text">Brigadeiro pronto</span><span class="chk-qty">40 un</span></div>
-    <div class="chk-item" onclick="chk(this)"><div class="chk-box"></div><span class="chk-text">Branquinho pronto</span><span class="chk-qty">40 un</span></div>
-    <div class="chk-item" onclick="chk(this)"><div class="chk-box"></div><span class="chk-text">Pirulito de chocolate</span><span class="chk-qty">14 un</span></div>
-    <div class="chk-item" onclick="chk(this)"><div class="chk-box"></div><span class="chk-text">Bis ou KitKat individual</span><span class="chk-qty">20 un</span></div>
-    <div class="chk-item" onclick="chk(this)"><div class="chk-box"></div><span class="chk-text">Bolo de aniversário</span><span class="chk-qty">a definir</span></div>
-  </div>
-
-  <div class="chk-group">
-    <div class="chk-head">Bebidas</div>
-    <div class="chk-item" onclick="chk(this)"><div class="chk-box"></div><span class="chk-text">Antártica Original 330ml</span><span class="chk-qty">24 + 12</span></div>
-    <div class="chk-item" onclick="chk(this)"><div class="chk-box"></div><span class="chk-text">Água sem gás 1,5 kg</span><span class="chk-qty">4 caixas</span></div>
-    <div class="chk-item" onclick="chk(this)"><div class="chk-box"></div><span class="chk-text">Água com gás 500g</span><span class="chk-qty">2 caixas</span></div>
-    <div class="chk-item" onclick="chk(this)"><div class="chk-box"></div><span class="chk-text">Água sem gás 500g (escola)</span><span class="chk-qty">1 caixa</span></div>
-    <div class="chk-item" onclick="chk(this)"><div class="chk-box"></div><span class="chk-text">Suco caixinha uva ou maracujá</span><span class="chk-qty">10 un</span></div>
-    <div class="chk-item" onclick="chk(this)"><div class="chk-box"></div><span class="chk-text">Vinho tinto seco</span><span class="chk-qty">2 garrafas</span></div>
-    <div class="chk-item" onclick="chk(this)"><div class="chk-box"></div><span class="chk-text">Cachaça envelhecida</span><span class="chk-qty">700 g</span></div>
-    <div class="chk-item" onclick="chk(this)"><div class="chk-box"></div><span class="chk-text">Coca-Cola 1,5L</span><span class="chk-qty">4 garrafas</span></div>
-  </div>
-
-  <div class="chk-group">
-    <div class="chk-head">Churrasqueira e insumos</div>
-    <div class="chk-item" onclick="chk(this)"><div class="chk-box"></div><span class="chk-text">Carvão</span><span class="chk-qty">8 kg</span></div>
-    <div class="chk-item" onclick="chk(this)"><div class="chk-box"></div><span class="chk-text">Lenha para defumação (laranjeira ou macieira)</span><span class="chk-qty">3–4 peças</span></div>
-    <div class="chk-item" onclick="chk(this)"><div class="chk-box"></div><span class="chk-text">Filme plástico</span><span class="chk-qty">1 rolo</span></div>
-    <div class="chk-item" onclick="chk(this)"><div class="chk-box"></div><span class="chk-text">Papel alumínio</span><span class="chk-qty">1 rolo grande</span></div>
-    <div class="chk-item" onclick="chk(this)"><div class="chk-box"></div><span class="chk-text">Papel manteiga</span><span class="chk-qty">1 rolo</span></div>
-    <div class="chk-item" onclick="chk(this)"><div class="chk-box"></div><span class="chk-text">Lençol branco (projeção na parede)</span><span class="chk-qty">1 un</span></div>
-  </div>
-</section>
-
-<!-- ════════════════ CONTRATO ════════════════ -->
-<section id="sec-contrato" class="section">
-  <div class="sh" style="margin-top:0">Dados do contrato</div>
-  <div class="warn-card">
-    <div class="warn-title">Contrato nº 12741 — Salão Terraço</div>
-    <div class="warn-body">ASSGAPA · Canoas/RS · 13/06/2026 · Capacidade 60 pessoas</div>
-  </div>
-  <div class="warn-card urgente">
-    <div class="warn-title">⚠ Parcela em aberto</div>
-    <div class="warn-body">1ª parcela R$399,00 — vencimento 05/06/2026. Confirmar pagamento.</div>
-  </div>
-
-  <div class="sh">Obrigações antes do evento</div>
-  <div class="chk-group">
-    <div class="chk-item" onclick="chk(this)"><div class="chk-box"></div><span class="chk-text">Contratar segurança de empresa credenciada (secretaria ASSGAPA)</span><span class="chk-qty">urgente</span></div>
-    <div class="chk-item" onclick="chk(this)"><div class="chk-box"></div><span class="chk-text">Pagar 1ª parcela R$399,00</span><span class="chk-qty">05/06</span></div>
-    <div class="chk-item" onclick="chk(this)"><div class="chk-box"></div><span class="chk-text">Preparar lista de convidados em ordem alfabética</span><span class="chk-qty">D-1</span></div>
-  </div>
-
-  <div class="sh">No dia</div>
-  <div class="chk-group">
-    <div class="chk-item" onclick="chk(this)"><div class="chk-box"></div><span class="chk-text">Receber salão a partir das 10h — vistoria de entrada</span><span class="chk-qty">10h</span></div>
-    <div class="chk-item" onclick="chk(this)"><div class="chk-box"></div><span class="chk-text">Entregar lista de convidados</span><span class="chk-qty">chegada</span></div>
-    <div class="chk-item" onclick="chk(this)"><div class="chk-box"></div><span class="chk-text">Chamar Diretor para vistoria final ao encerrar</span><span class="chk-qty">final</span></div>
-    <div class="chk-item" onclick="chk(this)"><div class="chk-box"></div><span class="chk-text">Desocupar salão até 40 min após horário limite</span><span class="chk-qty">final</span></div>
-  </div>
-
-  <div class="sh">Proibições — risco de cancelamento imediato</div>
-  <div class="warn-card urgente">
-    <div class="warn-title">Cancelamento imediato do evento</div>
-    <div class="warn-body">Chuva de prata · lança perfume · bolinhas de sabão · fogos de artifício (dentro ou fora)</div>
-  </div>
-  <div class="warn-card">
-    <div class="warn-title">Decoração — somente ganchos já existentes</div>
-    <div class="warn-body">Proibido fitas adesivas, pregos ou parafusos nas paredes. Sem balões nos suportes das lâmpadas.</div>
-  </div>
-  <div class="warn-card">
-    <div class="warn-title">Bebida alcoólica</div>
-    <div class="warn-body">Proibido para menores de 18 anos. O locatário responde criminalmente.</div>
-  </div>
-  <div class="warn-card ok">
-    <div class="warn-title">Projetor ✓</div>
-    <div class="warn-body">Sem restrição no contrato. Usa o lençol branco nos ganchos existentes para projeção.</div>
-  </div>
-</section>
-
-<!-- ════════════════ NAV ════════════════ -->
-<nav class="bottom-nav">
-  <button class="nav-btn active" onclick="switchSection('cardapio',this)">
-    <span class="nav-icon">🍽</span>
-    <span class="nav-label">Cardápio</span>
-  </button>
-  <button class="nav-btn" onclick="switchSection('receitas',this)">
-    <span class="nav-icon">📖</span>
-    <span class="nav-label">Receitas</span>
-  </button>
-  <button class="nav-btn" onclick="switchSection('plano',this)">
-    <span class="nav-icon">📅</span>
-    <span class="nav-label">Plano</span>
-  </button>
-  <button class="nav-btn" onclick="switchSection('compras',this)">
-    <span class="nav-icon">🛒</span>
-    <span class="nav-label">Compras</span>
-  </button>
-  <button class="nav-btn" onclick="switchSection('contrato',this)">
-    <span class="nav-icon">📋</span>
-    <span class="nav-label">Contrato</span>
-  </button>
-</nav>
+</div>
 
 <script>
-function switchSection(id, btn) {
-  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-  document.getElementById('sec-' + id).classList.add('active');
-  btn.classList.add('active');
-  window.scrollTo(0, 0);
+const ITEMS = [
+  {id:'bb',   n:'Fatura BB',          v:'R$ 11.999', c:'Cartão · venc. ~10/07'},
+  {id:'c6',   n:'Fatura C6',          v:'R$ 1.468',  c:'PIX · venc. ~10/07'},
+  {id:'alug', n:'Aluguel',            v:'R$ 2.052',  c:'Mario Geisel · ~10/07'},
+  {id:'stel', n:'Veículo Stellantis', v:'R$ 1.237',  c:'Boleto · ~08/07'},
+  {id:'esc',  n:'Escola Maria',       v:'R$ 1.222',  c:'Mensalidade'},
+  {id:'knn',  n:'KNN Idiomas',        v:'R$ 291',    c:'Inglês · Maria'},
+  {id:'gym',  n:'Maria Gym',          v:'R$ 260',    c:'Academia'},
+  {id:'cri',  n:'Cristina',           v:'R$ 600',    c:'Diarista'},
+  {id:'smt',  n:'SmartFit',           v:'R$ 214',    c:'JG + Morgana'},
+  {id:'asg',  n:'ASSGAPA',            v:'R$ 113',    c:'~05/07'},
+  {id:'uni',  n:'Unicred',            v:'R$ 828',    c:'Fatura'},
+  {id:'cla',  n:'Internet Claro',     v:'R$ 217',    c:'PIX'},
+  {id:'rge',  n:'Energia RGE',        v:'R$ 246',    c:'PIX'},
+];
+
+const netData = [
+  {m:'Jul/26', bb:3438, c6:0},
+  {m:'Ago/26', bb:2008, c6:0},
+  {m:'Set/26', bb:899,  c6:753},
+  {m:'Out/26', bb:697,  c6:889},
+  {m:'Nov/26', bb:478,  c6:0},
+  {m:'Dez/26', bb:226,  c6:444},
+  {m:'Jan/27', bb:96,   c6:0},
+];
+const mx = Math.max(...netData.map(d => d.bb + d.c6));
+const fK = v => v >= 1000 ? (v/1000).toFixed(1).replace(/\.0$/,'') + 'k' : v;
+
+document.getElementById('netRows').innerHTML = netData.map(d => {
+  const tot = d.bb + d.c6;
+  const wBB = Math.round(d.bb / mx * 100);
+  const wC6 = Math.round(d.c6 / mx * 100);
+  return `<div class="nbr">
+    <div class="nb-month">${d.m}</div>
+    <div class="nb-track">
+      <div class="nb-bb" style="width:${wBB}%"></div>
+      <div class="nb-c6" style="width:${wC6}%"></div>
+    </div>
+    <div class="nb-val">${fK(tot)}</div>
+  </div>`;
+}).join('');
+
+const SK = 'jg_chk_jul26', CK = 'jg_gist_cfg';
+let chk = {}, cfg = {};
+
+function loadLocal() {
+  try { chk = JSON.parse(localStorage.getItem(SK) || '{}'); } catch(e) { chk = {}; }
+  try { cfg = JSON.parse(localStorage.getItem(CK) || '{}'); } catch(e) { cfg = {}; }
+  if (cfg.id)  document.getElementById('gistId').value = cfg.id;
+  if (cfg.tok) document.getElementById('gistToken').value = cfg.tok;
 }
 
-function switchFesta(section, festa, btn) {
-  const parent = btn.closest('.section');
-  parent.querySelectorAll('.festa-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  parent.querySelectorAll('.festa-panel').forEach(p => p.classList.remove('active'));
-  document.getElementById(section + '-' + festa).classList.add('active');
+function saveLocal() { localStorage.setItem(SK, JSON.stringify(chk)); }
+
+function renderCk() {
+  const done = Object.values(chk).filter(Boolean).length;
+  const tot  = ITEMS.length;
+  const pct  = Math.round(done / tot * 100);
+  document.getElementById('heroProgress').textContent = done + ' / ' + tot;
+  document.getElementById('progCount').textContent = pct + '%';
+  document.getElementById('progFill').style.width = pct + '%';
+  document.getElementById('ckList').innerHTML = ITEMS.map(it => {
+    const d = !!chk[it.id];
+    return `<div class="ck" onclick="toggle('${it.id}')">
+      <div class="ck-box ${d?'on':''}">
+        ${d ? '<svg width="13" height="13" viewBox="0 0 13 13" fill="none"><polyline points="2.5,6.5 5.5,9.5 10.5,3.5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>' : ''}
+      </div>
+      <div class="ck-txt">
+        <div class="ck-name ${d?'on':''}">${it.n}</div>
+        <div class="ck-cat">${it.c}</div>
+      </div>
+      <div class="ck-amt ${d?'on':''}">${it.v}</div>
+    </div>`;
+  }).join('');
 }
 
-function toggleRecipe(id) {
-  const el = document.getElementById(id);
-  el.classList.toggle('open');
+function toggle(id) {
+  chk[id] = !chk[id];
+  saveLocal(); renderCk();
+  if (cfg.id && cfg.tok) schedSync();
 }
 
-function toggleDay(id) {
-  const el = document.getElementById(id);
-  el.classList.toggle('open');
-  const body = el.querySelector('.day-body');
-  body.style.display = el.classList.contains('open') ? 'block' : 'none';
+function saveConfig() {
+  cfg.id  = document.getElementById('gistId').value.trim();
+  cfg.tok = document.getElementById('gistToken').value.trim();
+  localStorage.setItem(CK, JSON.stringify(cfg));
+  if (cfg.id && cfg.tok) syncNow();
+  else setSt('', 'Configure o Gist ID e o token');
 }
 
-function chk(item) {
-  item.classList.toggle('done');
-  updatePb();
-  save();
+function setSt(state, msg) {
+  document.getElementById('syncDot').className = 'sync-dot' + (state ? ' ' + state : '');
+  document.getElementById('syncTxt').textContent = msg;
 }
 
-function updatePb() {
-  const all = document.querySelectorAll('.chk-item');
-  const done = document.querySelectorAll('.chk-item.done');
-  const pct = all.length ? Math.round(done.length / all.length * 100) : 0;
-  document.getElementById('pb-fill').style.width = pct + '%';
-  document.getElementById('pb-label').textContent = done.length + ' / ' + all.length;
-}
+let stmr = null;
+function schedSync() { clearTimeout(stmr); stmr = setTimeout(syncNow, 2000); }
 
-function save() {
+async function syncNow() {
+  if (!cfg.id || !cfg.tok) { setSt('', 'Configure o Gist ID e o token'); return; }
+  setSt('run', 'Sincronizando...');
   try {
-    const s = [];
-    document.querySelectorAll('.chk-item').forEach((el, i) => s[i] = el.classList.contains('done'));
-    localStorage.setItem('mv_chk', JSON.stringify(s));
-  } catch(e) {}
+    const r = await fetch(`https://api.github.com/gists/${cfg.id}`, {
+      method: 'PATCH',
+      headers: { 'Authorization': 'token ' + cfg.tok, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ files: { 'jg_fin.json': { content: JSON.stringify({ chk, ts: Date.now() }) } } })
+    });
+    if (!r.ok) throw new Error(r.status);
+    setSt('ok', 'Salvo · ' + new Date().toLocaleTimeString('pt-BR', {hour:'2-digit', minute:'2-digit'}));
+  } catch(e) {
+    setSt('err', 'Erro — verifique o Gist ID e o token');
+  }
 }
 
-function load() {
+async function loadGist() {
+  if (!cfg.id || !cfg.tok) return;
+  setSt('run', 'Carregando...');
   try {
-    const s = JSON.parse(localStorage.getItem('mv_chk') || '[]');
-    document.querySelectorAll('.chk-item').forEach((el, i) => { if (s[i]) el.classList.add('done'); });
-  } catch(e) {}
-  updatePb();
+    const r = await fetch(`https://api.github.com/gists/${cfg.id}`, {
+      headers: { 'Authorization': 'token ' + cfg.tok }
+    });
+    if (!r.ok) throw new Error(r.status);
+    const data = await r.json();
+    const c = data.files['jg_fin.json']?.content;
+    if (c) { const p = JSON.parse(c); chk = p.chk || {}; saveLocal(); renderCk(); }
+    setSt('ok', 'Sincronizado · ' + new Date().toLocaleTimeString('pt-BR', {hour:'2-digit', minute:'2-digit'}));
+  } catch(e) {
+    setSt('err', 'Erro ao carregar');
+  }
 }
 
-window.addEventListener('DOMContentLoaded', load);
+function go(id, btn) {
+  document.querySelectorAll('.sec').forEach(s => s.classList.remove('on'));
+  document.querySelectorAll('.nb').forEach(b => b.classList.remove('on'));
+  document.getElementById('s-' + id).classList.add('on');
+  btn.classList.add('on');
+  if (id === 'checklist') { renderCk(); if (cfg.id && cfg.tok) loadGist(); }
+}
+
+loadLocal();
+renderCk();
+if (cfg.id && cfg.tok) loadGist();
 </script>
 </body>
 </html>
